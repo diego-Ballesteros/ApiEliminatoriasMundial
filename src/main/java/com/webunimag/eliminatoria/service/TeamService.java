@@ -26,4 +26,12 @@ public class TeamService {
                 .orElseThrow(()-> new RuntimeException("el equipo no existe"));
     }
 
+    public TeamEntity saveTeam(TeamEntity team){
+        return this.teamRepository.save(team);
+    }
+
+    public Boolean existTeamById(int idTeam){
+        return this.teamRepository.existsById(idTeam);
+    }
+
 }

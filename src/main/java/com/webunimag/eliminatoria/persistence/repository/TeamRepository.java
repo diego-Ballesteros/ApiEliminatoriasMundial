@@ -9,4 +9,5 @@ public interface TeamRepository extends ListCrudRepository<TeamEntity, Integer> 
 
     Optional<TeamEntity> getByNameIgnoreCase(String name);
 
+
 }

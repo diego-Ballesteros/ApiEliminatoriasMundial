@@ -26,4 +26,18 @@ public class TeamController {
     public ResponseEntity<TeamEntity> getByName(@RequestParam String name){
         return ResponseEntity.ok(this.teamService.getByName(name));
     }
+    @PostMapping()
+    public ResponseEntity<TeamEntity> addTeam(@RequestBody TeamEntity team){
+        if(team.getIdTeam() == null || !this.teamService.existTeamById(team.getIdTeam())){
+            return ResponseEntity.ok(this.teamService.saveTeam(team));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+    @PutMapping
+    public ResponseEntity<TeamEntity> updateTeam(@RequestBody TeamEntity team){
+        if(team.getIdTeam() != null && this.teamService.existTeamById(team.getIdTeam())){
+            return ResponseEntity.ok(this.teamService.saveTeam(team));
+        }
+        return ResponseEntity.badRequest().build();
+    }
 }
