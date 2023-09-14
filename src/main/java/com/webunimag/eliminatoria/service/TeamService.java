@@ -34,4 +34,8 @@ public class TeamService {
         return this.teamRepository.existsById(idTeam);
     }
 
+    public void deleteTeam(int idTeam){
+        this.teamRepository.deleteById(idTeam);
+    }
+
 }
