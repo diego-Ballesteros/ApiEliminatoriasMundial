@@ -17,7 +17,7 @@ Aplicar los conociminetos aprendidos sobre spring y creacion de api
 #### GET / ("http://localhost:8080/api/equipos")
 #### GET / get by name RequestParam ("http://localhost:8080/api/equipos/nombre?")
 #### POST / RequestBody ("http://localhost:8080/api/equipos")
-#### PUT / RequestBody ("http://localhost:8080/api/equipos")
+#### PUT / RequestBody ("http://localhost:8080/api/equipos/{idEquipo}")
 #### DELETE / ("http://localhost:8080/api/equipos/{idEquipo}")
 
 ## Partido:
