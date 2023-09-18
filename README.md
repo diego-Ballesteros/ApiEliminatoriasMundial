@@ -9,23 +9,22 @@ Aplicar los conociminetos aprendidos sobre spring y creacion de api
 
 ![diseñoFisicoBD-ingles](https://github.com/diego-Ballesteros/EliminatoriasMundial/assets/114629529/c76587a9-2977-4b61-a722-2609a177dc7a)
 
-### Ruta inicial ("http://localhost:8080")
 
 ### Operaciones contruidas 
 
-## Equipo:
+## Teams:
 #### GET / ("http://localhost:8080/api/equipos")
 #### GET / get by name RequestParam ("http://localhost:8080/api/equipos/nombre?")
 #### POST / RequestBody ("http://localhost:8080/api/equipos")
 #### PUT / RequestBody ("http://localhost:8080/api/equipos/{idEquipo}")
 #### DELETE / ("http://localhost:8080/api/equipos/{idEquipo}")
 
-## Partido:
+## Matches:
 #### GET / ("http://localhost:8080/api/partidos")
 #### POST / RequestBody ("http://localhost:8080/api/partidos")
 #### PATCH / RequestBody ("http://localhost:8080/api/partidos")
 
-## Resultado:
+## Results:
 #### POST / RequestBody ("http://localhost:8080/api/resultados")
 #### PATCH / RequestBody ("http://localhost:8080/api/resultados")
 
