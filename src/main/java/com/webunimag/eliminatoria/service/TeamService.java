@@ -39,4 +39,8 @@ public class TeamService {
         this.teamRepository.deleteById(idTeam);
     }
 
+    public int countIsLocal (String name){
+        return this.teamRepository.countISLocal(name);
+    }
+
 }

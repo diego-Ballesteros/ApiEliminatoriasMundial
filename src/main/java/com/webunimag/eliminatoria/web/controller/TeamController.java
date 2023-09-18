@@ -33,9 +33,9 @@ public class TeamController {
         }
         return ResponseEntity.badRequest().build();
     }
-    @PutMapping
-    public ResponseEntity<TeamEntity> updateTeam(@RequestBody TeamEntity team){
-        if(team.getIdTeam() != null && this.teamService.existTeamById(team.getIdTeam())){
+    @PutMapping("/{idTeam}")
+    public ResponseEntity<TeamEntity> updateTeam(@PathVariable int idTeam ,@RequestBody TeamEntity team){
+        if(this.teamService.existTeamById(idTeam)){
             return ResponseEntity.ok(this.teamService.saveTeam(team));
         }
         return ResponseEntity.badRequest().build();
@@ -47,5 +47,9 @@ public class TeamController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
+    }
+    @GetMapping("/contarlocal")
+    public ResponseEntity<Integer> countIsLocal (@RequestParam String name){
+        return ResponseEntity.ok(this.teamService.countIsLocal(name));
     }
 }
