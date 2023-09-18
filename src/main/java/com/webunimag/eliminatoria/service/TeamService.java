@@ -18,6 +18,7 @@ public class TeamService {
     }
 
     public List<TeamEntity> getAll(){
+
         return this.teamRepository.findAll();
     }
 
