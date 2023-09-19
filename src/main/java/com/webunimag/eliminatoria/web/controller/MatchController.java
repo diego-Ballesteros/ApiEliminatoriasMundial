@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -22,16 +24,17 @@ public class MatchController {
     public ResponseEntity<List<MatchEntity>> getAll(){
         return ResponseEntity.ok(this.matchService.getAll());
     }
-    /*@GetMapping("/nombre/{name}")
-    public ResponseEntity<MatchEntity> getById(@PathVariable String name){
-        return ResponseEntity.ok(this.matchService.getAllMatchByTeamName(name));
-    }*/
+
     @PostMapping
     public ResponseEntity<MatchEntity> addMatch( @RequestBody MatchEntity match){
         if(match.getIdMatch() == null || !this.matchService.existByIdMatch(match.getIdMatch())){
             return ResponseEntity.ok(this.matchService.saveMatch(match));
         }
         return ResponseEntity.badRequest().build();
+    }
+    @GetMapping("/date")
+    public ResponseEntity<MatchEntity> getByDate(@RequestParam LocalDateTime date){
+        return ResponseEntity.ok(this.matchService.getByDate(date));
     }
     @PatchMapping
     public ResponseEntity<MatchEntity> updateMatch( @RequestBody MatchEntity match){
@@ -40,4 +43,9 @@ public class MatchController {
         }
         return ResponseEntity.badRequest().build();
     }
+
+    /*@GetMapping("/nombre/{name}")
+    public ResponseEntity<MatchEntity> getByNameTeam(@PathVariable String name){
+        return ResponseEntity.ok(this.matchService.getAllMatchByTeamName(name));
+    }*/
 }

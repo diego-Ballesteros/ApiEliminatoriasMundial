@@ -4,6 +4,9 @@ import com.webunimag.eliminatoria.persistence.entity.MatchEntity;
 import com.webunimag.eliminatoria.persistence.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +21,11 @@ public class MatchService {
 
     public List<MatchEntity> getAll(){
         return this.matchRepository.findAll();
+    }
+
+    public MatchEntity getByDate(LocalDateTime date){
+        return this.matchRepository.findAllByDate(date).
+                orElseThrow(()-> new RuntimeException("no se encontro partido con esta fecha"));
     }
 
    /* public MatchEntity getAllMatchByTeamName(String name){

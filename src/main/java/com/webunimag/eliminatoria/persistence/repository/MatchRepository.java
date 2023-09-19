@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 public interface MatchRepository extends ListCrudRepository<MatchEntity, Integer> {
@@ -18,6 +20,9 @@ public interface MatchRepository extends ListCrudRepository<MatchEntity, Integer
             "   WHERE te.name = :nameTeam" +
             "   ORDER BY ma.date", nativeQuery = true)
    MatchEntity findAllMatchByTeamName(@Param("nameTeam") String nameTeam);*/
+
+    Optional<MatchEntity> findAllByDate(LocalDateTime date);
+
 
 
 }

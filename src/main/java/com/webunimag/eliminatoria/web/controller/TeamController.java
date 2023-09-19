@@ -5,7 +5,9 @@ import com.webunimag.eliminatoria.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,7 +22,12 @@ public class TeamController {
     }
     @GetMapping()
     public ResponseEntity<List<TeamEntity>> getAll(){
+        /*List<TeamEntity> teamsList = this.teamService.getAll();
+        return ResponseEntity.ok().body(teamsList);*/
+
         return ResponseEntity.ok(this.teamService.getAll());
+
+
     }
     @GetMapping("/nombre")
     public ResponseEntity<TeamEntity> getByName(@RequestParam String name){
@@ -28,10 +35,17 @@ public class TeamController {
     }
     @PostMapping()
     public ResponseEntity<TeamEntity> addTeam(@RequestBody TeamEntity team){
-        if(team.getIdTeam() == null || !this.teamService.existTeamById(team.getIdTeam())){
-            return ResponseEntity.ok(this.teamService.saveTeam(team));
+       if(team.getIdTeam() == null || !this.teamService.existTeamById(team.getIdTeam())){
+           return ResponseEntity.ok(this.teamService.saveTeam(team));
         }
-        return ResponseEntity.badRequest().build();
+       return ResponseEntity.badRequest().build();
+
+//        TeamEntity teamCreated = this.teamService.saveTeam(team);
+//        URI location = ServletUriComponentsBuilder.
+//                fromCurrentRequest().
+//                buildAndExpand().
+//                toUri();
+//        return  ResponseEntity.created(location).body(teamCreated);
     }
     @PutMapping("/{idTeam}")
     public ResponseEntity<TeamEntity> updateTeam(@PathVariable int idTeam ,@RequestBody TeamEntity team){
