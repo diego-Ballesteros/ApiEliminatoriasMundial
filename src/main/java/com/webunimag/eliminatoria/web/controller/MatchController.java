@@ -32,7 +32,7 @@ public class MatchController {
         }
         return ResponseEntity.badRequest().build();
     }
-    @GetMapping("/date")
+    @GetMapping("/fecha")
     public ResponseEntity<MatchEntity> getByDate(@RequestParam LocalDateTime date){
         return ResponseEntity.ok(this.matchService.getByDate(date));
     }

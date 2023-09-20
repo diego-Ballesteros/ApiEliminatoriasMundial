@@ -26,8 +26,6 @@ public class TeamController {
         return ResponseEntity.ok().body(teamsList);*/
 
         return ResponseEntity.ok(this.teamService.getAll());
-
-
     }
     @GetMapping("/nombre")
     public ResponseEntity<TeamEntity> getByName(@RequestParam String name){

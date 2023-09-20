@@ -1,5 +1,6 @@
 package com.webunimag.eliminatoria.service;
 
+import com.webunimag.eliminatoria.exceptions.TeamNotFoundException;
 import com.webunimag.eliminatoria.persistence.entity.TeamEntity;
 import com.webunimag.eliminatoria.persistence.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class TeamService {
 
     public TeamEntity getByName(String name){
         return this.teamRepository.getByNameIgnoreCase(name)
-                .orElseThrow(()-> new RuntimeException("el equipo no existe"));
+                .orElseThrow(()-> new TeamNotFoundException("No se encontro el equipo"));
     }
 
     public TeamEntity saveTeam(TeamEntity team){
