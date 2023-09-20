@@ -21,6 +21,7 @@ Aplicar los conociminetos aprendidos sobre spring y creacion de api
 
 ## Matches:
 #### GET / ("http://localhost:8080/api/partidos")
+#### GET / get by date RequestParam ("http://localhost:8080/api/partidos/fecha?")
 #### POST / RequestBody ("http://localhost:8080/api/partidos")
 #### PATCH / RequestBody ("http://localhost:8080/api/partidos")
 
