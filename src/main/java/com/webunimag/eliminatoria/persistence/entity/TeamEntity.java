@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class TeamEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_team", nullable = false, length = 30)
     private Integer idTeam;
     @Column(nullable = false, length = 50)

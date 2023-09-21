@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class ResultDto {
     @JsonProperty("Id")
-    private Integer id;
+    private Integer idResult;
     @JsonProperty("Goles local")
     private Integer goalLocal;
     @JsonProperty("Goles visitante")

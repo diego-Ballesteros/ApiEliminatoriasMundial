@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ResultEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_result", nullable = false, length = 30)
     private Integer idResult;
     @Column(name = "goal_local")
