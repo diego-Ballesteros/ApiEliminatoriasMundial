@@ -10,7 +10,7 @@ Aplicar los conociminetos aprendidos sobre spring y creacion de api
 ![diseñoFisicoBD-ingles](https://github.com/diego-Ballesteros/EliminatoriasMundial/assets/114629529/c76587a9-2977-4b61-a722-2609a177dc7a)
 
 
-### Operaciones contruidas 
+### Operaciones construidas 
 
 ## Teams:
 #### GET / ("http://localhost:8080/api/equipos")
