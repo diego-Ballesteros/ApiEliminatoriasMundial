@@ -1,31 +1,37 @@
 package com.webunimag.eliminatoria.web.controller;
 
+import com.webunimag.eliminatoria.dto.dto.TeamDto;
+import com.webunimag.eliminatoria.dto.mapper.TeamMapper;
 import com.webunimag.eliminatoria.persistence.entity.TeamEntity;
 import com.webunimag.eliminatoria.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/equipos")
 public class TeamController {
 
     private final TeamService teamService;
+    private final TeamMapper teamMapper;
 
     @Autowired
-    public TeamController(TeamService teamService) {
+    public TeamController(TeamService teamService, TeamMapper teamMapper) {
         this.teamService = teamService;
+        this.teamMapper = teamMapper;
     }
     @GetMapping()
-    public ResponseEntity<List<TeamEntity>> getAll(){
-        /*List<TeamEntity> teamsList = this.teamService.getAll();
-        return ResponseEntity.ok().body(teamsList);*/
+    public ResponseEntity<List<TeamDto>> getAll(){
+       // List<TeamEntity> teamsList = this.teamService.getAll();
+        List<TeamDto> teamsListDto = null;
 
-        return ResponseEntity.ok(this.teamService.getAll());
+        teamsListDto = this.teamService.getAll().stream()
+                .map(team -> this.teamMapper.teamEntityToTeamDto(team))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(teamsListDto);
     }
     @GetMapping("/nombre")
     public ResponseEntity<TeamEntity> getByName(@RequestParam String name){

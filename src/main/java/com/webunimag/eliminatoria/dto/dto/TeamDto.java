@@ -1,20 +1,20 @@
-package com.webunimag.eliminatoria.dto;
+package com.webunimag.eliminatoria.dto.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import com.webunimag.eliminatoria.dto.dto.MatchDto;
+import lombok.Data;
 
-import java.util.Set;
+import java.util.List;
 
-@Setter
-@Getter
+@Data
 public class TeamDto {
-    @JsonProperty("ID")
-    private int id;
+
+    @JsonProperty("Id")
+    private Integer id;
     @JsonProperty("Nombre")
     private String name;
     @JsonProperty("DirectorTecnico")
     private String dt;
     @JsonProperty("PartidosJugados")
-    private Set<MatchDto> matches;
+    private List<MatchDto> matches;
 }

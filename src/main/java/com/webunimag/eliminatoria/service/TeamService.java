@@ -1,5 +1,6 @@
 package com.webunimag.eliminatoria.service;
 
+import com.webunimag.eliminatoria.dto.mapper.TeamMapper;
 import com.webunimag.eliminatoria.exceptions.TeamNotFoundException;
 import com.webunimag.eliminatoria.persistence.entity.TeamEntity;
 import com.webunimag.eliminatoria.persistence.repository.TeamRepository;
@@ -12,14 +13,15 @@ import java.util.List;
 public class TeamService {
 
     private final TeamRepository teamRepository;
+    private final TeamMapper teamMapper;
 
     @Autowired
-    public TeamService(TeamRepository teamRepository) {
+    public TeamService(TeamRepository teamRepository, TeamMapper teamMapper) {
         this.teamRepository = teamRepository;
+        this.teamMapper = teamMapper;
     }
 
     public List<TeamEntity> getAll(){
-
         return this.teamRepository.findAll();
     }
 
