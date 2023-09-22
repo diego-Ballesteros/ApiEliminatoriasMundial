@@ -2,12 +2,15 @@ package com.webunimag.eliminatoria.web.controller;
 
 import com.webunimag.eliminatoria.dto.dto.TeamDto;
 import com.webunimag.eliminatoria.dto.mapper.TeamMapper;
+import com.webunimag.eliminatoria.exceptions.TeamNotFoundException;
 import com.webunimag.eliminatoria.persistence.entity.TeamEntity;
 import com.webunimag.eliminatoria.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,22 +37,23 @@ public class TeamController {
         return ResponseEntity.ok(teamsListDto);
     }
     @GetMapping("/nombre")
-    public ResponseEntity<TeamEntity> getByName(@RequestParam String name){
-        return ResponseEntity.ok(this.teamService.getByName(name));
+    public ResponseEntity<TeamDto> getByName(@RequestParam String name){
+        TeamDto teamDto = null;
+        teamDto = this.teamMapper.teamEntityToTeamDto(this.teamService.getByName(name));
+        return ResponseEntity.ok(teamDto);
     }
     @PostMapping()
     public ResponseEntity<TeamEntity> addTeam(@RequestBody TeamEntity team){
        if(team.getIdTeam() == null || !this.teamService.existTeamById(team.getIdTeam())){
-           return ResponseEntity.ok(this.teamService.saveTeam(team));
+           TeamEntity teamCreated = this.teamService.saveTeam(team);
+           URI location = ServletUriComponentsBuilder
+                   .fromCurrentRequest()
+                   .path("/{idTeam}")
+                   .buildAndExpand(teamCreated.getIdTeam())
+                   .toUri();
+           return  ResponseEntity.created(location).body(teamCreated);
         }
        return ResponseEntity.badRequest().build();
-
-//        TeamEntity teamCreated = this.teamService.saveTeam(team);
-//        URI location = ServletUriComponentsBuilder.
-//                fromCurrentRequest().
-//                buildAndExpand().
-//                toUri();
-//        return  ResponseEntity.created(location).body(teamCreated);
     }
     @PutMapping("/{idTeam}")
     public ResponseEntity<TeamEntity> updateTeam(@PathVariable int idTeam ,@RequestBody TeamEntity team){

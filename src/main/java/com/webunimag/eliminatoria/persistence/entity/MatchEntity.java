@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class MatchEntity {
     @Id
     @Column(name = "id_match", nullable = false, length = 30)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idMatch;
 
     @Column(nullable = false, length = 50)

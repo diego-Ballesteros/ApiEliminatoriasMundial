@@ -33,6 +33,14 @@ public class MatchController {
 
         return ResponseEntity.ok(matchesDto);
     }
+    @GetMapping("/fecha")
+    public ResponseEntity<MatchDto> getByDate(@RequestParam LocalDateTime date){
+        MatchDto matchDto = null;
+        matchDto = this.matchMapper.matchEntityToMatchDto(
+                this.matchService.getByDate(date)
+        );
+        return ResponseEntity.ok(matchDto);
+    }
 
     @PostMapping
     public ResponseEntity<MatchEntity> addMatch( @RequestBody MatchEntity match){
@@ -41,10 +49,7 @@ public class MatchController {
         }
         return ResponseEntity.badRequest().build();
     }
-    @GetMapping("/fecha")
-    public ResponseEntity<MatchEntity> getByDate(@RequestParam LocalDateTime date){
-        return ResponseEntity.ok(this.matchService.getByDate(date));
-    }
+
     @PatchMapping
     public ResponseEntity<MatchEntity> updateMatch( @RequestBody MatchEntity match){
         if(match.getIdMatch() != null && this.matchService.existByIdMatch(match.getIdMatch())){

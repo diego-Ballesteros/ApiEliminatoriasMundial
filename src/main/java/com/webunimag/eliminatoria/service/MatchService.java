@@ -1,5 +1,6 @@
 package com.webunimag.eliminatoria.service;
 
+import com.webunimag.eliminatoria.exceptions.TeamNotFoundException;
 import com.webunimag.eliminatoria.persistence.entity.MatchEntity;
 import com.webunimag.eliminatoria.persistence.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class MatchService {
 
     public MatchEntity getByDate(LocalDateTime date){
         return this.matchRepository.findAllByDate(date).
-                orElseThrow(()-> new RuntimeException("no se encontro partido con esta fecha"));
+                orElseThrow(()-> new TeamNotFoundException("no se encontro partido con esta fecha"));
     }
 
    /* public MatchEntity getAllMatchByTeamName(String name){
