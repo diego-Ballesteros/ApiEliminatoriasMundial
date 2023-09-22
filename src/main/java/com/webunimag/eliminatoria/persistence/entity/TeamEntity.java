@@ -1,6 +1,7 @@
 package com.webunimag.eliminatoria.persistence.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,10 +19,12 @@ public class TeamEntity {
     @Column(name = "id_team", nullable = false, length = 30)
     private Integer idTeam;
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "El nombre no puede estar en blanco")
     private String name;
     @Column(name = "country_flag",length = 250)
     private String countryFlagUrl;
     @Column(length = 50)
+    @NotBlank(message = "El nombre del DT no puede estar en blanco")
     private String dt;
 
     //   ---- Relaciones
