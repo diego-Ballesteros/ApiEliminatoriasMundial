@@ -14,10 +14,10 @@ public class ResultDto {
     @JsonProperty("Goles visitante")
     private Integer goalVisiting;
     @PositiveOrZero
-    @JsonProperty("Tarjetas amarillas")
+    @JsonProperty("Tarjetas Rojas")
     @PositiveOrZero
     private Integer nRedFlag;
-    @JsonProperty("Tarjetas Rojas")
+    @JsonProperty("Tarjetas Amarillas")
     @PositiveOrZero
     private Integer nYellowFlag;
 
