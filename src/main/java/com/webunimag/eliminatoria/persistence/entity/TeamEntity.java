@@ -2,6 +2,7 @@ package com.webunimag.eliminatoria.persistence.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ public class TeamEntity {
     private Integer idTeam;
     @Column(nullable = false, length = 50)
     @NotBlank(message = "El nombre no puede estar en blanco")
+    //@Pattern("Expresion regular")
     private String name;
     @Column(name = "country_flag",length = 250)
     private String countryFlagUrl;
@@ -33,6 +35,11 @@ public class TeamEntity {
 
     @OneToMany(mappedBy = "visitingTeam")
     private List<MatchEntity> visitingMatches;
+
+    /*validaciones
+     * email --> @Email
+     *
+     * */
 
 
 }

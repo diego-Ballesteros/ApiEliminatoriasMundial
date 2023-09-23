@@ -4,14 +4,17 @@ import com.webunimag.eliminatoria.dto.dto.MatchDto;
 import com.webunimag.eliminatoria.dto.mapper.MatchMapper;
 import com.webunimag.eliminatoria.persistence.entity.MatchEntity;
 import com.webunimag.eliminatoria.service.MatchService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Validated
 @RestController
 @RequestMapping("/api/partidos")
 public class MatchController {
@@ -43,23 +46,23 @@ public class MatchController {
     }
 
     @PostMapping
-    public ResponseEntity<MatchEntity> addMatch( @RequestBody MatchEntity match){
+    public ResponseEntity<MatchDto> addMatch( @RequestBody @Valid MatchEntity match){
         if(match.getIdMatch() == null || !this.matchService.existByIdMatch(match.getIdMatch())){
-            return ResponseEntity.ok(this.matchService.saveMatch(match));
+            MatchEntity matchCreated = this.matchService.saveMatch(match);
+            MatchDto matchDto = this.matchMapper.matchEntityToMatchDto(matchCreated);
+            return ResponseEntity.ok(matchDto);
         }
         return ResponseEntity.badRequest().build();
     }
 
     @PatchMapping
-    public ResponseEntity<MatchEntity> updateMatch( @RequestBody MatchEntity match){
+    public ResponseEntity<MatchDto> updateMatch( @RequestBody @Valid MatchEntity match){
         if(match.getIdMatch() != null && this.matchService.existByIdMatch(match.getIdMatch())){
-            return ResponseEntity.ok(this.matchService.saveMatch(match));
+            MatchEntity matchCreated = this.matchService.saveMatch(match);
+            MatchDto matchDto = this.matchMapper.matchEntityToMatchDto(matchCreated);
+            return ResponseEntity.ok(matchDto);
         }
         return ResponseEntity.badRequest().build();
     }
 
-    /*@GetMapping("/nombre/{name}")
-    public ResponseEntity<MatchEntity> getByNameTeam(@PathVariable String name){
-        return ResponseEntity.ok(this.matchService.getAllMatchByTeamName(name));
-    }*/
 }

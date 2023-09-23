@@ -5,8 +5,12 @@ import com.webunimag.eliminatoria.dto.mapper.TeamMapper;
 import com.webunimag.eliminatoria.exceptions.TeamNotFoundException;
 import com.webunimag.eliminatoria.persistence.entity.TeamEntity;
 import com.webunimag.eliminatoria.service.TeamService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -16,6 +20,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/equipos")
+@Validated
 public class TeamController {
 
     private final TeamService teamService;
@@ -37,13 +42,13 @@ public class TeamController {
         return ResponseEntity.ok(teamsListDto);
     }
     @GetMapping("/nombre")
-    public ResponseEntity<TeamDto> getByName(@RequestParam String name){
+    public ResponseEntity<TeamDto> getByName(@RequestParam @NotBlank String name){
         TeamDto teamDto = null;
         teamDto = this.teamMapper.teamEntityToTeamDto(this.teamService.getByName(name));
         return ResponseEntity.ok(teamDto);
     }
     @PostMapping()
-    public ResponseEntity<TeamEntity> addTeam(@RequestBody TeamEntity team){
+    public ResponseEntity<TeamDto> addTeam(@RequestBody @Valid TeamEntity team){
        if(team.getIdTeam() == null || !this.teamService.existTeamById(team.getIdTeam())){
            TeamEntity teamCreated = this.teamService.saveTeam(team);
            URI location = ServletUriComponentsBuilder
@@ -51,19 +56,22 @@ public class TeamController {
                    .path("/{idTeam}")
                    .buildAndExpand(teamCreated.getIdTeam())
                    .toUri();
-           return  ResponseEntity.created(location).body(teamCreated);
+           TeamDto teamDto = this.teamMapper.teamEntityToTeamDto(teamCreated);
+           return  ResponseEntity.created(location).body(teamDto);
         }
        return ResponseEntity.badRequest().build();
     }
     @PutMapping("/{idTeam}")
-    public ResponseEntity<TeamEntity> updateTeam(@PathVariable int idTeam ,@RequestBody TeamEntity team){
+    public ResponseEntity<TeamDto> updateTeam(@PathVariable @Min(1) int idTeam ,@RequestBody @Valid TeamEntity team){
         if(this.teamService.existTeamById(idTeam)){
-            return ResponseEntity.ok(this.teamService.saveTeam(team));
+            TeamEntity teamCreated = this.teamService.saveTeam(team);
+            TeamDto teamDto = this.teamMapper.teamEntityToTeamDto(teamCreated);
+            return ResponseEntity.ok(teamDto);
         }
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{idTeam}")
-    public ResponseEntity<Void> deleteTeam(@PathVariable int idTeam){
+    public ResponseEntity<Void> deleteTeam(@PathVariable @Min(1) int idTeam){
         if(this.teamService.existTeamById(idTeam)){
             this.teamService.deleteTeam(idTeam);
             return ResponseEntity.ok().build();
@@ -71,7 +79,7 @@ public class TeamController {
         return ResponseEntity.badRequest().build();
     }
     @GetMapping("/contarlocal")
-    public ResponseEntity<Integer> countIsLocal (@RequestParam String name){
+    public ResponseEntity<Integer> countIsLocal (@RequestParam @NotBlank String name){
         return ResponseEntity.ok(this.teamService.countIsLocal(name));
     }
 }

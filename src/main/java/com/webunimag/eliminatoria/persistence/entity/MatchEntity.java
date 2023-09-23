@@ -2,6 +2,7 @@ package com.webunimag.eliminatoria.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,8 +21,10 @@ public class MatchEntity {
     private Integer idMatch;
 
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "El nombre no puede estar en blanco")
     private String stadium;
     @Column(length = 50)
+    // al registrar un partido puede que aun no se halla asignado refere
     private String referee;
     @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime date;
