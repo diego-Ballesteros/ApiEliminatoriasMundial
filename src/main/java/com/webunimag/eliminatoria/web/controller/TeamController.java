@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -32,6 +33,7 @@ public class TeamController {
         this.teamMapper = teamMapper;
     }
     @GetMapping()
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<TeamDto>> getAll(){
        // List<TeamEntity> teamsList = this.teamService.getAll();
         List<TeamDto> teamsListDto = null;
@@ -42,12 +44,14 @@ public class TeamController {
         return ResponseEntity.ok(teamsListDto);
     }
     @GetMapping("/nombre")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<TeamDto> getByName(@RequestParam @NotBlank String name){
         TeamDto teamDto = null;
         teamDto = this.teamMapper.teamEntityToTeamDto(this.teamService.getByName(name));
         return ResponseEntity.ok(teamDto);
     }
     @PostMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TeamDto> addTeam(@RequestBody @Valid TeamEntity team){
        if(team.getIdTeam() == null || !this.teamService.existTeamById(team.getIdTeam())){
            TeamEntity teamCreated = this.teamService.saveTeam(team);
@@ -62,6 +66,7 @@ public class TeamController {
        return ResponseEntity.badRequest().build();
     }
     @PutMapping("/{idTeam}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<TeamDto> updateTeam(@PathVariable @Min(1) int idTeam ,@RequestBody @Valid TeamEntity team){
         if(this.teamService.existTeamById(idTeam)){
             TeamEntity teamCreated = this.teamService.saveTeam(team);
@@ -71,6 +76,7 @@ public class TeamController {
         return ResponseEntity.badRequest().build();
     }
     @DeleteMapping("/{idTeam}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteTeam(@PathVariable @Min(1) int idTeam){
         if(this.teamService.existTeamById(idTeam)){
             this.teamService.deleteTeam(idTeam);
@@ -79,6 +85,7 @@ public class TeamController {
         return ResponseEntity.badRequest().build();
     }
     @GetMapping("/contarlocal")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Integer> countIsLocal (@RequestParam @NotBlank String name){
         return ResponseEntity.ok(this.teamService.countIsLocal(name));
     }

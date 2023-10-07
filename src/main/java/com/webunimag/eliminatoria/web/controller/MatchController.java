@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,7 @@ public class MatchController {
         this.matchMapper = matchMapper;
     }
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<List<MatchDto>> getAll(){
         List<MatchDto> matchesDto = null;
 
@@ -37,6 +39,7 @@ public class MatchController {
         return ResponseEntity.ok(matchesDto);
     }
     @GetMapping("/fecha")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<MatchDto> getByDate(@RequestParam LocalDateTime date){
         MatchDto matchDto = null;
         matchDto = this.matchMapper.matchEntityToMatchDto(
@@ -46,6 +49,7 @@ public class MatchController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MatchDto> addMatch( @RequestBody @Valid MatchEntity match){
         if(match.getIdMatch() == null || !this.matchService.existByIdMatch(match.getIdMatch())){
             MatchEntity matchCreated = this.matchService.saveMatch(match);
@@ -56,6 +60,7 @@ public class MatchController {
     }
 
     @PatchMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MatchDto> updateMatch( @RequestBody @Valid MatchEntity match){
         if(match.getIdMatch() != null && this.matchService.existByIdMatch(match.getIdMatch())){
             MatchEntity matchCreated = this.matchService.saveMatch(match);

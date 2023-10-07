@@ -23,9 +23,11 @@ public class MatchEntity {
     @Column(nullable = false, length = 50)
     @NotBlank(message = "El nombre no puede estar en blanco")
     private String stadium;
+
     @Column(length = 50)
     // al registrar un partido puede que aun no se halla asignado refere
     private String referee;
+
     @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime date;
     //    ---- llaves foraneas
