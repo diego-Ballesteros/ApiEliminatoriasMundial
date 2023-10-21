@@ -13,7 +13,8 @@ import java.util.List;
 @Table(name = "roles")
 @Getter
 @Setter
-
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
