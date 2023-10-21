@@ -5,7 +5,7 @@ Api para simular las eliminatorias al mundial
 
 Aplicar los conociminetos aprendidos sobre spring y creacion de api
 
-#### Para el siguiente proyecto se uso el motor de base de datos mySql y se planteo una base de datos sencilla respresentada con el siguiente diseño logico
+#### Para el siguiente proyecto se utiliza una base de datos mySql desplegada en Azure y se planteo una base de datos sencilla respresentada con el siguiente diseño logico
 
 ![diseñoFisicoBD-ingles](https://github.com/diego-Ballesteros/EliminatoriasMundial/assets/114629529/c76587a9-2977-4b61-a722-2609a177dc7a)
 
