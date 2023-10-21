@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "roles")
 @Getter
@@ -18,8 +21,8 @@ public class Role {
     // (EnumType.STRING) -> toma en cuenta no la posicion si no el valor en este caso string
     @Enumerated(EnumType.STRING)
     private ERole name;
-    public Role() {
-    }
+    @ManyToMany(mappedBy = "roles")
+    private List<UserEntity> users = new ArrayList<>();
 
     public Role(ERole name) {
         this.name = name;

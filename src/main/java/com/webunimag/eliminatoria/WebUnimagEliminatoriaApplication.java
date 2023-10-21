@@ -10,5 +10,4 @@ public class WebUnimagEliminatoriaApplication {
 
 		SpringApplication.run(WebUnimagEliminatoriaApplication.class, args);
 	}
-
 }
